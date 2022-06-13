@@ -5,7 +5,7 @@ date: "5/25/2022"
 output: html_document
 ---
 
-```{r setup, include=FALSE}
+```{r setup, include=TRUE}
 knitr::opts_chunk$set(echo = TRUE)
 library(tidyverse)
 library(lubridate)
@@ -23,6 +23,7 @@ Display a summary of the data imported:
 
 ```{r summary_data, echo=TRUE}
 summary(data)
+spec(data)
 ```
 
 ### Wrangling the data
@@ -59,7 +60,9 @@ Following is a bar chart of the number of incidents by BORO and colored by VIcti
 
 ```{r plot1}
 ggplot(data = data) + 
-    geom_bar(mapping = aes(x = BORO, color = VIC_RACE, fill = VIC_RACE)) + theme(axis.text.x = element_text(angle = 90), legend.position="bottom") + scale_fill_brewer(palette="Set1")
+    geom_bar(mapping = aes(x = BORO, color = VIC_RACE, fill = VIC_RACE)) + theme(axis.text.x = element_text(angle = 90), legend.position="bottom") + scale_fill_brewer(palette=1)
+
+**An interactive web-based dashboard to track COVID-19 in real time**(https://doi.org/10.1016/S1473-3099(20)30120-1)
 ```
 
 The Brooklyn brorough has the higher number of incidents folllowed by the Bronx. Victim's race of black seems to have the highest number of incidents across all boroughs. 
