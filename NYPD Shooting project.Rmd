@@ -1,0 +1,90 @@
+---
+title: "NYPD Shooting"
+author: "A Z Ullah"
+date: "5/25/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(lubridate)
+```
+
+### Reading in the data
+
+```{r import_data, echo=FALSE}
+data <- read_csv("https://data.cityofnewyork.us/api/views/833y-fsy8/rows.csv?accessType=DOWNLOAD")
+```
+
+### Summary of the data
+
+Display a summary of the data imported: 
+
+```{r summary_data, echo=TRUE}
+summary(data)
+```
+
+### Wrangling the data
+
+Perform the following data cleanup steps:
+
+1. Change date and time columns to date and time objects 
+2. Change columns holding categories to factor 
+3. Remove columns not needed 
+4. Remove rows with missing values 
+
+```{r wrangle_data, echo=TRUE}
+data <- data %>% mutate(OCCUR_DATE = mdy(OCCUR_DATE)) %>%
+                mutate(OCCUR_TIME = hms(OCCUR_TIME)) %>% 
+                mutate(JURISDICTION_CODE = factor(JURISDICTION_CODE)) %>% 
+    select(-X_COORD_CD, -Y_COORD_CD, -Latitude, -Longitude , -Lon_Lat) %>% 
+              mutate(PERP_AGE_GROUP = factor(PERP_AGE_GROUP)) %>%                        mutate(VIC_AGE_GROUP = factor(VIC_AGE_GROUP)) %>%                          mutate(PERP_SEX = factor(PERP_SEX)) %>% 
+              mutate(PERP_RACE = factor(PERP_RACE)) %>% 
+              mutate(VIC_SEX = factor(VIC_SEX)) %>% 
+              mutate(VIC_RACE = factor(VIC_RACE))  %>% 
+              mutate(BORO = factor(BORO)) %>% 
+              filter(!is.na(JURISDICTION_CODE)) %>%                                      filter(!is.na(PERP_RACE)) %>% 
+              filter(!is.na(PERP_AGE_GROUP))  %>% 
+              filter(!is.na(PERP_SEX))
+summary(data)
+data
+```
+
+### Visualizations
+
+#### Visualization #1 
+
+Following is a bar chart of the number of incidents by BORO and colored by VIctim race 
+
+```{r plot1}
+ggplot(data = data) + 
+    geom_bar(mapping = aes(x = BORO, color = VIC_RACE, fill = VIC_RACE)) + theme(axis.text.x = element_text(angle = 90), legend.position="bottom") + scale_fill_brewer(palette="Set1")
+```
+
+The Brooklyn brorough has the higher number of incidents folllowed by the Bronx. Victim's race of black seems to have the highest number of incidents across all boroughs. 
+
+#### Visualization #2
+
+**Following is a grid plot with rows being the victim's race and columns being perpetrator's race  **
+
+```{r plot2, fig.width=10, fig.height=10}
+ggplot(data = data) + facet_grid(rows = vars(VIC_RACE), cols = vars(PERP_RACE)) + geom_bar(mapping = aes(x = VIC_RACE)) + theme(axis.text.x = element_blank(), legend.position="bottom", strip.text.x = element_text(angle = 90), strip.text.y = element_text(angle = 0)) + scale_fill_brewer(palette="Set1")
+```
+
+**The black on black incidents seems to be the highest by far. This is a known trend. The white on black incidents are showing as non-existent. This needs to be investigated further. **
+
+### Conclusion 
+
+In conclusion we observe that incidents where the perpretrator's race is Black and victim's race is also Black seem to be the highest. Locality wise it looks like the highest number of incidents occurred in Brooklyn followed by Bronx. 
+
+**Some sources of bias maybe the perpretrator or victim's race not being collected correctly. This results in a high number for Unknown perpretrator and Black victim cases. **
+
+Regarding personal biases, I realize that I do not belong to a White or hispanic race demographic which may lead to some personal bias on my part. 
+In order to mitigate this bias I should concentrate on the Non-Black data.
+
+### Session Info
+
+```{r info, echo=FALSE}
+sessionInfo()
+```
