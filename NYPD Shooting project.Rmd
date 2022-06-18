@@ -70,6 +70,7 @@ ggplot(data = data) +
 **Following is a grid plot with rows being the victim's race and columns being perpetrator's race  **
 
 ```{r plot2, fig.width=10, fig.height=10}
+library(RColorBrewer)
 ggplot(data = data) + facet_grid(rows = vars(VIC_RACE), cols = vars(PERP_RACE)) + geom_bar(mapping = aes(x = VIC_RACE)) + theme(axis.text.x = element_blank(), legend.position="bottom", strip.text.x = element_text(angle = 90), strip.text.y = element_text(angle = 0))
 ```
 
