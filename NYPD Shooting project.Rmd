@@ -12,7 +12,7 @@ library(lubridate)
 ```
 
 ### Reading in the data
-Reading the data from the city of new york on [NYPD shooting incidents](https://data.cityofnewyork.us/api/views/833y-fsy8/rows.csv?accessType=DOWNLOAD) between 2006, january till 2015, december
+Reading the data from the city of new york on [NYPD shooting incidents](https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8) between 2006, january till 2015, december. [Link to video on vimeo](https://vimeo.com/manage/videos/721640101/767bb79908)
 
 ```{r import_data, echo=TRUE}
 data <- read_csv("https://data.cityofnewyork.us/api/views/833y-fsy8/rows.csv?accessType=DOWNLOAD")
@@ -60,7 +60,7 @@ Following is a bar chart of the number of incidents by BORO and colored by VIcti
 
 ```{r plot1}
 ggplot(data = data) + 
-    geom_bar(mapping = aes(x = BORO, color = VIC_RACE, fill = VIC_RACE)) + theme(axis.text.x = element_text(angle = 90), legend.position="bottom") + scale_fill_brewer(palette="Set1")
+    geom_bar(mapping = aes(x = BORO, color = VIC_RACE, fill = VIC_RACE)) + theme(axis.text.x = element_text(angle = 90), legend.position="bottom") + scale_fill_brewer(palette="Dark2")
 ```
 
 **The Brooklyn brorough has the higher number of incidents folllowed by the Bronx. Victim's race of black seems to have the highest number of incidents across all boroughs. **
@@ -70,7 +70,7 @@ ggplot(data = data) +
 **Following is a grid plot with rows being the victim's race and columns being perpetrator's race  **
 
 ```{r plot2, fig.width=10, fig.height=10}
-ggplot(data = data) + facet_grid(rows = vars(VIC_RACE), cols = vars(PERP_RACE)) + geom_bar(mapping = aes(x = VIC_RACE)) + theme(axis.text.x = element_blank(), legend.position="bottom", strip.text.x = element_text(angle = 90), strip.text.y = element_text(angle = 0)) + scale_fill_brewer(palette="Set1")
+ggplot(data = data) + facet_grid(rows = vars(VIC_RACE), cols = vars(PERP_RACE)) + geom_bar(mapping = aes(x = VIC_RACE)) + theme(axis.text.x = element_blank(), legend.position="bottom", strip.text.x = element_text(angle = 90), strip.text.y = element_text(angle = 0))
 ```
 
 **The black on black incidents seems to be the highest by far. This is a known trend. The white on black incidents are showing as non-existent. This needs to be investigated further. **
