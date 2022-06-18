@@ -442,7 +442,7 @@ shooting incidents</a> between 2006, january till 2015, december. <a href="https
 <pre class="r"><code>data &lt;- data %&gt;% mutate(OCCUR_DATE = mdy(OCCUR_DATE)) %&gt;%
                 mutate(OCCUR_TIME = hms(OCCUR_TIME)) %&gt;% 
                 mutate(JURISDICTION_CODE = factor(JURISDICTION_CODE)) %&gt;% 
-    select(-X_COORD_CD, -Y_COORD_CD, -Latitude, -Longitude , -Lon_Lat) %&gt;% 
+###    select(-X_COORD_CD, -Y_COORD_CD, -Latitude, -Longitude , -Lon_Lat) %&gt;% ###
               mutate(PERP_AGE_GROUP = factor(PERP_AGE_GROUP)) %&gt;%                        mutate(VIC_AGE_GROUP = factor(VIC_AGE_GROUP)) %&gt;%                          mutate(PERP_SEX = factor(PERP_SEX)) %&gt;% 
               mutate(PERP_RACE = factor(PERP_RACE)) %&gt;% 
               mutate(VIC_SEX = factor(VIC_SEX)) %&gt;% 
@@ -484,16 +484,24 @@ summary(data)</code></pre>
 ##  UNKNOWN                       : 1802   65+    : 123            
 ##  WHITE                         :  272   UNKNOWN:  55            
 ##  WHITE HISPANIC                : 2163                           
-##                            VIC_RACE    
-##  AMERICAN INDIAN/ALASKAN NATIVE:    7  
-##  ASIAN / PACIFIC ISLANDER      :  257  
-##  BLACK                         :11093  
-##  BLACK HISPANIC                : 1639  
-##  UNKNOWN                       :   47  
-##  WHITE                         :  514  
-##  WHITE HISPANIC                : 2693</code></pre>
+##                            VIC_RACE       X_COORD_CD        Y_COORD_CD    
+##  AMERICAN INDIAN/ALASKAN NATIVE:    7   Min.   : 920263   Min.   :128875  
+##  ASIAN / PACIFIC ISLANDER      :  257   1st Qu.: 999794   1st Qu.:183346  
+##  BLACK                         :11093   Median :1007915   Median :196451  
+##  BLACK HISPANIC                : 1639   Mean   :1009006   Mean   :209100  
+##  UNKNOWN                       :   47   3rd Qu.:1017119   3rd Qu.:240479  
+##  WHITE                         :  514   Max.   :1065474   Max.   :271128  
+##  WHITE HISPANIC                : 2693                                     
+##     Latitude       Longitude        Lon_Lat         
+##  Min.   :40.52   Min.   :-74.23   Length:16250      
+##  1st Qu.:40.67   1st Qu.:-73.94   Class :character  
+##  Median :40.71   Median :-73.91   Mode  :character  
+##  Mean   :40.74   Mean   :-73.91                     
+##  3rd Qu.:40.83   3rd Qu.:-73.88                     
+##  Max.   :40.91   Max.   :-73.71                     
+## </code></pre>
 <pre class="r"><code>data</code></pre>
-<pre><code>## # A tibble: 16,250 x 14
+<pre><code>## # A tibble: 16,250 x 19
 ##    INCIDENT_KEY OCCUR_DATE OCCUR_TIME BORO      PRECINCT JURISDICTION_CODE
 ##           &lt;dbl&gt; &lt;date&gt;     &lt;Period&gt;   &lt;fct&gt;        &lt;dbl&gt; &lt;fct&gt;            
 ##  1    225295736 2021-03-07 6H 15M 0S  BROOKLYN        75 0                
@@ -506,9 +514,11 @@ summary(data)</code></pre>
 ##  8    234268729 2021-09-29 12H 50M 0S BRONX           48 0                
 ##  9    225438895 2021-03-10 7H 30M 0S  MANHATTAN       28 0                
 ## 10    232193235 2021-08-13 1H 0M 0S   QUEENS         109 0                
-## # ... with 16,240 more rows, and 8 more variables: LOCATION_DESC &lt;chr&gt;,
+## # ... with 16,240 more rows, and 13 more variables: LOCATION_DESC &lt;chr&gt;,
 ## #   STATISTICAL_MURDER_FLAG &lt;lgl&gt;, PERP_AGE_GROUP &lt;fct&gt;, PERP_SEX &lt;fct&gt;,
-## #   PERP_RACE &lt;fct&gt;, VIC_AGE_GROUP &lt;fct&gt;, VIC_SEX &lt;fct&gt;, VIC_RACE &lt;fct&gt;</code></pre>
+## #   PERP_RACE &lt;fct&gt;, VIC_AGE_GROUP &lt;fct&gt;, VIC_SEX &lt;fct&gt;, VIC_RACE &lt;fct&gt;,
+## #   X_COORD_CD &lt;dbl&gt;, Y_COORD_CD &lt;dbl&gt;, Latitude &lt;dbl&gt;, Longitude &lt;dbl&gt;,
+## #   Lon_Lat &lt;chr&gt;</code></pre>
 </div>
 <div id="visualizations" class="section level3">
 <h3>Visualizations</h3>

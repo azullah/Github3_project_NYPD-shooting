@@ -39,7 +39,7 @@ Perform the following data cleanup steps:
 data <- data %>% mutate(OCCUR_DATE = mdy(OCCUR_DATE)) %>%
                 mutate(OCCUR_TIME = hms(OCCUR_TIME)) %>% 
                 mutate(JURISDICTION_CODE = factor(JURISDICTION_CODE)) %>% 
-    select(-X_COORD_CD, -Y_COORD_CD, -Latitude, -Longitude , -Lon_Lat) %>% 
+###    select(-X_COORD_CD, -Y_COORD_CD, -Latitude, -Longitude , -Lon_Lat) %>% ###
               mutate(PERP_AGE_GROUP = factor(PERP_AGE_GROUP)) %>%                        mutate(VIC_AGE_GROUP = factor(VIC_AGE_GROUP)) %>%                          mutate(PERP_SEX = factor(PERP_SEX)) %>% 
               mutate(PERP_RACE = factor(PERP_RACE)) %>% 
               mutate(VIC_SEX = factor(VIC_SEX)) %>% 
