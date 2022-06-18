@@ -12,7 +12,7 @@ library(lubridate)
 ```
 
 ### Reading in the data
-Reading the data from the city of new york on [NYPD shooting incidents](https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8) between 2006, january till 2015, december. [Link to video on vimeo](https://vimeo.com)
+Reading the data from the city of new york on [NYPD shooting incidents](https://data.cityofnewyork.us/Public-Safety/NYPD-Shooting-Incident-Data-Historic-/833y-fsy8) between 2006, january till 2015, december. [Link to video on vimeo](https://vimeo.com/manage/videos/721640101/767bb79908)
 
 ```{r import_data, echo=TRUE}
 data <- read_csv("https://data.cityofnewyork.us/api/views/833y-fsy8/rows.csv?accessType=DOWNLOAD")
